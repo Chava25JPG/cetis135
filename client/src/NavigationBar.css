@@ -1,0 +1,28 @@
+.navigation-bar {
+    background-color: #8B0000; /* Un rojo oscuro como en la imagen */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+  }
+  
+  .navigation-bar .logo {
+    font-weight: bold;
+  }
+  
+  .navigation-bar .navigation-links {
+    display: flex;
+  }
+  
+  .navigation-bar .navigation-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    padding: 0.5rem;
+    display: block;
+  }
+  
+  .navigation-bar .navigation-links a.active-link {
+    border-bottom: 2px solid white;
+  }
+  
