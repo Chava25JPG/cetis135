@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import NavigationBar from './NavigationBar.js';
+import NavigationBar from './NavigationBar';
 
-function Conocenos() {
+
+function Plantel() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/conocenos")
+    fetch("http://localhost:3001/api/plantel")
         .then(res => {
             if (!res.ok) {
                 throw new Error('Network response was not ok');
@@ -26,4 +27,4 @@ function Conocenos() {
   );
 }
 
-export default Conocenos;
+export default Plantel;
