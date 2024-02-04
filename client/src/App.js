@@ -6,6 +6,9 @@ import VerUsuariosAdmin from './UsuariosCrud/VerUsuariosAdmin.js';
 import Conocenos from './Conocenos';
 import NavigationBar from './NavigationBar';
 import Plantel from './Plantel';
+import Login from './UsuariosCrud/Login.js'
+
+import UserParticipanteForm from './UsuariosCrud/RegistrarParticipante.js'
 
 function App() {
   return (
@@ -13,6 +16,8 @@ function App() {
       <div className="App">
         {/* <NavigationBar /> */}
         <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/crear/participante" element={<UserParticipanteForm />} />
           <Route path="/usuarios/listadousuarios" element={<VerUsuariosAdmin />} />
           <Route path="/usuarios/crearusuario" element={<CrearUsuarioAdmin />} />
           <Route path="/" element={<Home />} />
