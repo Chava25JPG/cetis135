@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('alumno');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,10 +19,10 @@ const Login = () => {
         contraseña: password,
         rol: activeTab,
       });
-
-      // Aquí manejarías la respuesta, por ejemplo, guardando el token en el almacenamiento local
-      console.log(response.data);
+  
+      localStorage.setItem('token', response.data.token);
       alert('Inicio de sesión exitoso.');
+      navigate('/alumno');
     } catch (error) {
       setError(error.response?.data?.error || 'Error desconocido al iniciar sesión.');
     }
@@ -33,6 +34,7 @@ const Login = () => {
         <button onClick={() => setActiveTab('administrador')}>Administradores</button>
         <button onClick={() => setActiveTab('secretaria')}>Secretaria</button>
         <button onClick={() => setActiveTab('alumno')}>Alumnos</button>
+        <button onClick={() => setActiveTab('participante')}>Participantes</button>
       </div>
       <div className="login-form">
         <form onSubmit={handleLogin}>

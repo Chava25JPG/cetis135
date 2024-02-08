@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const UserParticipanteForm = () => {
@@ -12,9 +12,23 @@ const UserParticipanteForm = () => {
     correo: '',
     contraseña: '',
     rol: 'participante',
+    id_especialidad: '',
   });
+  const [especialidades, setEspecialidades] = useState([]);
   const [isUserCreated, setIsUserCreated] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
+  
+  useEffect(() => {
+    const cargarEspecialidades = async () => {
+      try {
+        const respuesta = await axios.get('http://localhost:3001/api/especialidades');
+        setEspecialidades(respuesta.data.especialidades);
+      } catch (error) {
+        console.error('Error al cargar especialidades:', error);
+      }
+    };
+    cargarEspecialidades();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +90,21 @@ const UserParticipanteForm = () => {
       <input type="date" name="fecha_nacimiento" value={userData.fecha_nacimiento} onChange={handleChange} required />
       <input type="text" name="lugar_nacimiento" value={userData.lugar_nacimiento} onChange={handleChange} placeholder="Lugar de Nacimiento" required />
       <input type="text" name="CURP" value={userData.CURP} onChange={handleChange} placeholder="CURP" required />
+      <select
+        name="id_especialidad"
+        value={userData.id_especialidad}
+        onChange={handleChange}
+        required
+      >
+        <option value="">Selecciona una especialidad</option>
+        {especialidades.map((especialidad) => (
+          <option key={especialidad.id_especialidad} value={especialidad.id_especialidad}>
+            {especialidad.nombre_especialidad}
+          </option>
+        ))}
+      </select>
       <input type="email" name="correo" value={userData.correo} onChange={handleChange} placeholder="Correo Electrónico" required />
+
       <input type="password" name="contraseña" value={userData.contraseña} onChange={handleChange} placeholder="Contraseña" required />
         <button type="submit">Crear Usuario</button>
       </form>
